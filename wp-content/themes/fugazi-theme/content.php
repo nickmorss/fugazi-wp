@@ -61,50 +61,39 @@
 		?>
 		
 		
-		
-		<?php 
- 
-	$quote = get_post_meta( get_the_ID(), 'quote', true);
-
-	if( ! empty( $quote ) ) {
-		echo '<h3>Quote: ' . $quote . '<h3>';
-	}
- 
-?>
-		
-		
-		
 		<?php		
+		/**
+		* Custom code to dispaly the connections
+		*		
+		
 		// Find connected pages
-$connected = new WP_Query( array(
-  'connected_type' => 'snippets_to_posts',
-  'connected_items' => get_queried_object(),
-  'nopaging' => true,
-) );
+			$connected = new WP_Query( array(
+			  'connected_type' => 'snippets_to_posts',
+			  'connected_items' => get_queried_object(),
+			  'nopaging' => true,
+			) );
 
-// Display connected pages
-if ( $connected->have_posts() ) :
-?>
-<h3>Related pages on content:</h3>
-<ul>
-<?php while ( $connected->have_posts() ) : $connected->the_post(); ?>
-    <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-<?php endwhile; ?>
-</ul>
+			// Display connected pages
+			if ( $connected->have_posts() ) :
+			?>
+			<h3>Related pages on content:</h3>
+			<ul>
+			<?php while ( $connected->have_posts() ) : $connected->the_post(); ?>
+			    <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+			<?php endwhile; ?>
+			</ul>
 
-<?php 
-// Prevent weirdness
-wp_reset_postdata();
+			<?php 
+			// Prevent weirdness
+			wp_reset_postdata();
 
-endif;
-?>
+			endif;
+			*/
+		?>
 
 	</div><!-- .entry-content -->
 	<?php endif; ?>
 
 	<?php the_tags( '<footer class="entry-meta"><span class="tag-links">', '', '</span></footer>' ); ?>
-	
-	
-	
 	
 </article><!-- #post-## -->

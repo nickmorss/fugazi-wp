@@ -62,7 +62,9 @@ register_deactivation_hook( __FILE__, array( 'RESTful_Fugazi', 'deactivate' ) );
  */
 add_action( 'plugins_loaded', array( 'RESTful_Fugazi', 'get_instance' ) );
 
-		add_action( 'admin_menu', 'restful_tool_page');
+add_action( 'admin_menu', 'restful_tool_page');
+add_action('admin_menu', 'send_rest');
+
 
 
 /*----------------------------------------------------------------------------*
@@ -94,11 +96,91 @@ if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
 function restful_tool_page() {
     
-add_menu_page('Page title', 'Ranking', 'manage_options', 'restful-fugazi', 'my_magic_function');
-add_management_page( __('Test Tools','menu-test'), __('Test Tools','menu-test'), 'manage_options', 'testtools', 'mt_tools_page');
+add_menu_page('Page title', 'Ranking', 'manage_options', 'restful-fugazi');
+//add_management_page( __('Test Tools','menu-test'), __('Test Tools','menu-test'), 'manage_options', 'testtools', 'mt_tools_page');
 
 }
 
-function mt_tools_page() {
+function send_rest() {
+// $screen = get_current_screen();
+//	var_dump($_GET);
+//	var_dump($_POST);
+
+// Lets check we have submitted our plugin
+	foreach( $_GET as $stuff ) {
+	    if( !is_array( $stuff ) ) {	        
+	        if ($stuff == "restful-fugazi") {
+
+//now lets get some data
+/*	foreach( $_POST as $stuff ) {
+	    if( is_array( $stuff ) ) {
+	        foreach( $stuff as $thing ) {
+	            echo $thing;
+	        }
+	    } else {
+	        echo $stuff;
+	    }
+	}*/
+
+
+echo CallAPI("POST1", "http://test.com/", $_POST);
+
+// close method
+	        }
+	    }
+	}
+	
+	//echo $_POST["submit_ranking"];
+	error_log($screen, 0);
+}
+
+
+// Method: POST, PUT, GET etc
+// Data: array("param" => "value") ==> index.php?param=value
+
+function CallAPI($method, $url, $data = false)
+{
+    $curl = curl_init();
+
+    switch ($method)
+    {
+        case "POST":
+            curl_setopt($curl, CURLOPT_POST, 1);
+
+            if ($data)
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            break;
+        case "PUT":
+            curl_setopt($curl, CURLOPT_PUT, 1);
+            break;
+        default:
+            if ($data)
+                $url = sprintf("%s?%s", $url, http_build_query($data));
+    }
+
+    // Optional Authentication:
+//    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+ //   curl_setopt($curl, CURLOPT_USERPWD, "username:password");
+
+//    curl_setopt($curl, CURLOPT_URL, $url);
+ //   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+echo $url;
+    $result = curl_exec($curl);
+
+    curl_close($curl);
+
+    return $result;
+}
+
+
+function get_custom_terms($taxonomies, $args){
+$args = array('orderby'=>'asc','hide_empty'=>true);
+$custom_terms = get_terms(array($taxonomies), $args);
+foreach($custom_terms as $term){
+    echo 'Term slug: ' . $term->slug . ' Term Name: ' . $term->name;
+}
+}
+
+/*function mt_tools_page() {
     echo "<h2>" . __( 'Test Tools', 'menu-test' ) . "</h2>";
-}
+}*/

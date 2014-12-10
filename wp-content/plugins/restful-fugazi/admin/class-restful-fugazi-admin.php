@@ -94,7 +94,7 @@ class RESTful_Fugazi_Admin {
 function restful_tool_page() {
     
 add_menu_page('Page title', 'Top-level menu title', 'manage_options', 'my-top-level-handle', 'my_magic_function');
-add_management_page( __('Test Tools','menu-test'), __('Test Tools','menu-test'), 'manage_options', 'testtools', 'mt_tools_page');
+//add_management_page( __('Test Tools','menu-test'), __('Test Tools','menu-test'), 'manage_options', 'testtools', 'mt_tools_page');
 
 }
 
@@ -224,7 +224,7 @@ function mt_tools_page() {
 
 		return array_merge(
 			array(
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
+				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . "NGM Settings link" . __( 'Settings', $this->plugin_slug ) . '</a>'
 			),
 			$links
 		);
@@ -240,8 +240,10 @@ function mt_tools_page() {
 	 *
 	 * @since    1.0.0
 	 */
-	public function action_method_name() {
-		// @TODO: Define your action hook callback here
+	
+
+	public function send_rest() {
+//
 	}
 
 	/**
@@ -256,5 +258,7 @@ function mt_tools_page() {
 	public function filter_method_name() {
 		// @TODO: Define your filter hook callback here
 	}
+
+	
 
 }

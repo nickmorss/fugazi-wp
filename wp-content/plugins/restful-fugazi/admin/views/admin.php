@@ -18,11 +18,11 @@
 
 	<!-- @TODO: Provide markup for your options page here. -->
 
-<form name="ranker" method="post" action="">
+<form method="post" action="/wp-admin/admin.php?page=restful-fugazi">
 
 
     <label><?php _e("Title:", 'menu-test' ); ?> 
-        <input type="text" name="title" value="" size="20">
+        <input type="text" name="title" value="" size="20"/>
     </label>
     <br />
     <label><?php _e("Type:", 'menu-test' ); ?> 
@@ -32,44 +32,49 @@
         </select>
     </label>
     <br />
-    
-    <label><?php _e("Bank:", 'menu-test' ); ?> 
-        <input type="text" name="bank" value="" size="20">
-    </label>
+<?php
+ $tags = get_tags();
+$html = "<select name='bank'>";
+foreach ( $tags as $tag ) {
+    $tag_link = get_tag_link( $tag->term_id );
+            
+    $html .= "<option value='{$tag->slug}'>{$tag->name}</option>";
+}
+$html .= '</select>';
+echo $html;
+?><br />
+<?php
+$taxonomy = 'banks';
+$limit = 10;
+$queried_term = get_term_by( 'slug', get_query_var($taxonomy) );
+$terms = get_terms($taxonomy);
+shuffle($terms);
+if ($terms) {
+  foreach($terms as $term) {
+    if ( ++$count > $limit) break;
+    echo $sep . '<a href="' . $term->slug . '">' . $term->name .'</a>';
+$sep = ', ';  // Put your separator here.
+  }
+}
+?>
     <br />
     <label><?php _e("Analyst:", 'menu-test' ); ?> 
-        <input type="text" name="analyst" value="" size="20">
+        <input type="text" name="analyst" value="" size="20"/>
     </label>
     <br />
     <label><?php _e("Ranking:", 'menu-test' ); ?> 
-        <input type="text" name="ranking" value="" size="20">
+        <input type="text" name="ranking" value="" size="20"/>
     </label>
+
+    <input type="hidden" name="submit_ranking" value="submit_ranking" />
 
 <hr />
 
-<button id="submit-js" class="button-primary">
-<?php esc_attr_e('Save Changes') ?>
-</button>
+<input type="submit" name="ranker" class="button-primary" value="Submit">
 
 </form>
 
-<script type="text/javascript">
-
-
-
-jQuery("#submit-js").on("click", function() {
-    jQuery.ajax({
-      type: 'GET',
-      url:  '/some/url/title/' + jQuery("[name=title]").val() + '/bank/' + jQuery("[name=bank]").val() + '/analyst/' + jQuery("[name=analyst]").val() + '/ranking/' + jQuery("[name=ranking]").val(),
-      contentType: 'application/json',
-      success: function() {console.log('success')},
-      error: function(req, status, ex) {console.log(status)},
-      timeout:60000
-    });
-return false;
-});
-
-
-</script>
-
 </div>
+
+
+

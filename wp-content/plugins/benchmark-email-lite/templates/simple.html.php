@@ -17,7 +17,7 @@
 				</tr>
 				<tr>
 					<td align="left" style="font-family: Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif; font-size: 14px;">
-						TEST
+						FOOTER
 					</td>
 				</tr>
 			</table>

@@ -16,7 +16,7 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'wordpress');
+define('DB_NAME', 'fugazi');
 
 /** MySQL database username */
 define('DB_USER', 'root');
@@ -42,14 +42,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'W++Sy)eGa0/7|0k-EF=r_u,<N9(2O*w6r04*~O]=6&-p/Wy1)~^Nar{Gw&x4F+eX');
-define('SECURE_AUTH_KEY',  'V:VTkBaX%Jh/sDBt|YG]6Nhh/]~]f,JJCCoc4]XSt=e-hyF)CK^vz-m[w!-nW|Al');
-define('LOGGED_IN_KEY',    'k.e6;U)gixrC{+lY,yMj4dVp.(I!>I_GDDuOi?8rrcOJ_M?^O7+-SCSTd/@+9gK8');
-define('NONCE_KEY',        'g?2;k:{0$_USwkv7i|_G$^pf0@@0@FSd3uaqKu2Z9HBWndPapCL:~gRxO{0O10qm');
-define('AUTH_SALT',        'u:v$/Z xbtjV-40x0E5g2_QVr>H3)NyEBq8(+YU>Hrdm?^bc)Zn6S~2m,:o68^l9');
-define('SECURE_AUTH_SALT', '3|gLqa(:08@49tEZlu+APv1,guGrK7k]NAMy5j>Xo8^%[bN@v*1(-<Y^U[d4/kr>');
-define('LOGGED_IN_SALT',   'G+,&m)F|7!ODGln~mx{tE!|X#x:V*7WN?>-7SdG{JZM]pbxS5rA&h]eo)/}w,AEt');
-define('NONCE_SALT',       '^3.n`HZ)m$xC)m9ECWI_d)n]C)hy$rr0Ae&7d3;>,d+_Zfs-OCfx2)b+{+E]fSsv');
+define('AUTH_KEY',         '%n*?M7@!il(_5Oo925^tvB4061H,yX:}-K|54pb8H6yiknF@eyh1Im_.S~i$  b9');
+define('SECURE_AUTH_KEY',  '`tKOn |B3vcJ/kPK94GEd>&[U*9-%[l|6um<Fftz4h_`H:i}L u|ZqB)YcFLe_/.');
+define('LOGGED_IN_KEY',    '-6l^e;(0KDG1i*uObL>/q,7S!%eXlhJW, it8$E8M:]+}T5D:esl|(WX)dOO$4fO');
+define('NONCE_KEY',        'c@s<uCC[|b#@oo%@OH/Y&|_ZM<o+%*T;xQ1e-1sqb]=kAWa{9EH)>%8TeKa,~u1]');
+define('AUTH_SALT',        '4P%]}!G[KZ>9ZOq=AZDV^rOUuDX7spFbi6O~jFkW#.5t_$UM?-__pSsyI[)R-pCE');
+define('SECURE_AUTH_SALT', 'l<?Qu !t=B?t*vus|BT#GVO^r=>e&J,+9?r?Rfp %uFOFW~<0.-07;$1yT.1Zflg');
+define('LOGGED_IN_SALT',   '<.!Ep&J|}kW yv;R2/D`|$38z4bV;RZ*qTJ&VyTz]Y 6][c+(:k~zvM!QD.e9$,m');
+define('NONCE_SALT',       'l?2hYbe<XnEThMMzqf9KzSk6 9xfGwVv+eO,g35Q54P[Y6KlC<BjKGPy^s081,#%');
 
 /**#@-*/
 
@@ -68,7 +68,13 @@ $table_prefix  = 'wp_fugazi';
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
+// Enable Debug logging to the /wp-content/debug.log file
+define('WP_DEBUG_LOG', true);
+
+// Disable display of errors and warnings 
+define('WP_DEBUG_DISPLAY', false);
+@ini_set('display_errors',0);
 
 /* That's all, stop editing! Happy blogging. */
 

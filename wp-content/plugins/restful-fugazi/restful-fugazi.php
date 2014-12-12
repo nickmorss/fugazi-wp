@@ -102,36 +102,21 @@ add_menu_page('Page title', 'Ranking', 'manage_options', 'restful-fugazi');
 }
 
 function send_rest() {
-// $screen = get_current_screen();
-//	var_dump($_GET);
-//	var_dump($_POST);
 
 // Lets check we have submitted our plugin
 	foreach( $_GET as $stuff ) {
 	    if( !is_array( $stuff ) ) {	        
 	        if ($stuff == "restful-fugazi") {
 
-//now lets get some data
-/*	foreach( $_POST as $stuff ) {
-	    if( is_array( $stuff ) ) {
-	        foreach( $stuff as $thing ) {
-	            echo $thing;
-	        }
-	    } else {
-	        echo $stuff;
-	    }
-	}*/
+            $json = json_encode($_POST);
+            CallAPI("POST", "http://localhost:9000/articles", $json);
 
-
-echo CallAPI("POST1", "http://test.com/", $_POST);
-
-// close method
 	        }
 	    }
 	}
 	
 	//echo $_POST["submit_ranking"];
-	error_log($screen, 0);
+	error_log("log NGM", 0);
 }
 
 
@@ -141,30 +126,20 @@ echo CallAPI("POST1", "http://test.com/", $_POST);
 function CallAPI($method, $url, $data = false)
 {
     $curl = curl_init();
+    curl_setopt($curl, CURLOPT_POST, 2);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
-    switch ($method)
-    {
-        case "POST":
-            curl_setopt($curl, CURLOPT_POST, 1);
 
-            if ($data)
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            break;
-        case "PUT":
-            curl_setopt($curl, CURLOPT_PUT, 1);
-            break;
-        default:
-            if ($data)
-                $url = sprintf("%s?%s", $url, http_build_query($data));
-    }
-
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+    
     // Optional Authentication:
-//    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
- //   curl_setopt($curl, CURLOPT_USERPWD, "username:password");
+    //curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    //curl_setopt($curl, CURLOPT_USERPWD, "username:password");
 
-//    curl_setopt($curl, CURLOPT_URL, $url);
- //   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-echo $url;
     $result = curl_exec($curl);
 
     curl_close($curl);

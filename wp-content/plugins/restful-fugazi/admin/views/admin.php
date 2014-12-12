@@ -18,7 +18,7 @@
 
 	<!-- @TODO: Provide markup for your options page here. -->
 
-<form method="post" action="/wp-admin/admin.php?page=restful-fugazi">
+<form method="post" action="/fugazi-wp/wp-admin/admin.php?page=restful-fugazi">
 
 
     <label><?php _e("Title:", 'menu-test' ); ?> 
@@ -43,8 +43,8 @@ foreach ( $tags as $tag ) {
 $html .= '</select>';
 echo $html;
 ?><br />
-<?php
-$taxonomy = 'banks';
+<!--?php
+($taxonomy = 'banks';
 $limit = 10;
 $queried_term = get_term_by( 'slug', get_query_var($taxonomy) );
 $terms = get_terms($taxonomy);
@@ -56,7 +56,7 @@ if ($terms) {
 $sep = ', ';  // Put your separator here.
   }
 }
-?>
+?-->
     <br />
     <label><?php _e("Analyst:", 'menu-test' ); ?> 
         <input type="text" name="analyst" value="" size="20"/>
